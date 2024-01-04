@@ -44,42 +44,23 @@
                     <img src="{{ asset('images/login.png') }}" class="img-fluid" alt="Connectez vous pour lire des articles sur la santé" >
                 </div>
                 <div class="col-lg-6 d-flex flex-column justify-content-center align-items-center">
-                    <form method="POST" class="w-100">
-                        {% if error %}
-                            <div class="text-center alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-                        {% endif %}
+                    {% for flash_error in app.flashes('reset_password_error') %}
+                        <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+                    {% endfor %}
+                    {{ form_start(requestForm) }}
+                        <div class="mb-3">
+                            <label for="reset_password_request_form_email">Email</label>
+                            <div class="text-danger">{{form_errors(requestForm.email)}}</div>
+                            {{ form_widget(requestForm.email, {'attr': {'class':'form-control'}}) }}
+                            <small>
+                                Entrez votre adresse email et nous vous enverrons un lien pour la réinitialisation de votre mot de passe.
+                            </small>
+                        </div>
+                        <div>
+                            <input formnovalidate type="submit" class="btn btn-primary shadow">
+                        </div>
+                    {{ form_end(requestForm) }}
 
-                        {% for message in app.flashes('success') %}
-                            <div class="alert alert-success text-center" role="alert">
-                                {{message}}
-                            </div>
-                        {% endfor %}
-                        
-                        <div class="mb-3">
-                            <label for="authentication_form_email">Email</label>
-                            <input type="email" value="{{ last_username }}" name="email" id="authentication_form_email" class="form-control" autocomplete="email" required autofocus>
-                        </div>
-                        <div class="mb-3">
-                            <label for="authentication_form_password">Mot de passe</label>
-                            <input type="password" name="password" id="authentication_form_password" class="form-control" autocomplete="current-password" required>
-                        </div>
-                        <div class="row my-3">
-                            <div class="col-md-6 my-1">
-                                <label>
-                                    <input type="checkbox" name="_remember_me" checked>
-                                    Se souvenir de moi
-                                </label>
-                            </div>
-                            <div class="col-md-6 text-start text-md-end my-1">
-                                <a href="{{path('visitor.forgot_password.request')}}">Mot de passe oublié ?</a>
-                                {# <a href="{{path('visitor.authentication.forgot_password_request')}}">Mot de passe oublié ?</a> #}
-                            </div>
-                        </div>
-                            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}" >
-                        <div class="mb-3">
-                            <input formnovalidate type="submit" class="btn btn-primary w-100 shadow" value="Je me connecte">
-                        </div>
-                    </form>
                     <p class="my-1"><a href="{{path('visitor.welcome.index')}}">Retour à l'accueil</a></p>
                 </div>
             </div>
@@ -88,3 +69,4 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     </body>
 </html>
+
