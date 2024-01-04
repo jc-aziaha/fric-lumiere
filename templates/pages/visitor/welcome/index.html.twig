@@ -504,7 +504,7 @@
       <section id="about_us_section" class="layout_padding bg-light">
           <div class="container  ">
           <div class="heading_container heading_center mb-5">
-              <h2>
+              <h2 data-aos="fade-down">
               Qui sommes-<span>nous?</span>
               </h2>
           </div>
@@ -549,7 +549,7 @@
           border-bottom-left-radius: 120px;">
           <div class="container  ">
             <div class="heading_container heading_center">
-                <h2>
+                <h2 data-aos="fade-down">
                 Contactez-<span>nous</span>
                 </h2>
             </div>
@@ -593,7 +593,9 @@
                 {{message}}
               </div>
             {% endfor %}
-            <h2 class="text-center my-3">Vous préférez remplir le formulaire ?</h2>
+            <h2 class="text-center my-3" data-aos="fade-right"
+     data-aos-offset="300"
+     data-aos-easing="ease-in-sine">Vous préférez remplir le formulaire ?</h2>
             {{form_start(form, {'action': path('visitor.welcome.index')~'#contact_form_section'})}}
               <div class="row">
                 <div class="col-md-6 mb-3">
